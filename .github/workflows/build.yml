@@ -10,8 +10,7 @@ concurrency:
 jobs:
   prebuild:
     strategy:
-      matrix:
-        python: ["3.10"]
+      matrix: 
         include:
           - name: darwin
             os: macos-latest
@@ -32,18 +31,18 @@ jobs:
             os: windows-2019
             command: prebuildify
             args: --arch arm64 --target 20.11.1
-          - name: linux-x64
-            os: ubuntu-latest
-            command: prebuildify-cross
-            args: -i centos7-devtoolset7 -i alpine --target 14.0.0
-          - name: linux-arm
-            os: ubuntu-latest
-            command: prebuildify-cross
-            args: -i linux-arm64-lts -i linux-armv7 -i linux-armv7l-musl -i linux-armv6 --target 14.0.0
-          - name: android-arm
-            os: ubuntu-latest
-            command: prebuildify-cross
-            args: -i android-arm64 -i android-armv7 --target 14.0.0
+          # - name: linux-x64
+          #   os: ubuntu-latest
+          #   command: prebuildify-cross
+          #   args: -i centos7-devtoolset7 -i alpine --target 14.0.0
+          # - name: linux-arm
+          #   os: ubuntu-latest
+          #   command: prebuildify-cross
+          #   args: -i linux-arm64-lts -i linux-armv7 -i linux-armv7l-musl -i linux-armv6 --target 14.0.0
+          # - name: android-arm
+          #   os: ubuntu-latest
+          #   command: prebuildify-cross
+          #   args: -i android-arm64 -i android-armv7 --target 14.0.0
     name: Build ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -56,7 +55,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python }} # 指定 Python 版本
+          python-version: "3.10" # 指定 Python 版本
       - name: Verify Python version
         run: python --version
       - run: npm ci
