@@ -1,7 +1,7 @@
 {
   "name": "@bubuzi/bindings-cpp",
   "description": "SerialPort Hardware bindings for node serialport written in c++",
-  "version": "0.0.1.beta",
+  "version": "0.0.1-development",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "keywords": [
