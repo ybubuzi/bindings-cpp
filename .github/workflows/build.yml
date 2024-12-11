@@ -11,6 +11,7 @@ jobs:
   prebuild:
     strategy:
       matrix:
+        python: ["3.10"]
         include:
           - name: darwin
             os: macos-latest
@@ -46,18 +47,18 @@ jobs:
     name: Build ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }} # 指定 Python 版本
+      - name: Verify Python version
+        run: python --version
       - if: matrix.node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           architecture: ${{ matrix.node }}
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10' # 指定 Python 版本
-      - name: Verify Python version
-        run: python --version
       - run: npm ci
       - run: npm run ${{ matrix.command }} -- ${{ matrix.args }}
       - uses: actions/upload-artifact@v3
